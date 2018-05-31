@@ -434,10 +434,16 @@ var cnUtil = function(currencyConfig)
 	};
 
 	// Random 32-byte ec scalar
-	this.random_scalar = function() {
+	this.random_scalar = function(randomseed = null) {
 		//var rand = this.sc_reduce(mnemonic.mn_random(64 * 8));
 		//return rand.slice(0, STRUCT_SIZES.EC_SCALAR * 2);
-		return this.sc_reduce32(this.rand_32());
+		let seed
+		if (typeof randomseed === 'string') {
+			seed = randomseed
+		} else {
+			seed = this.rand_32()
+		}
+		return this.sc_reduce32(seed);
 	};
 
 	/* no longer used

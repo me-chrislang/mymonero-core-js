@@ -107,9 +107,9 @@ exports.DefaultWalletMnemonicWordsetName = mnemonicWordsetNamesByAppLocaleNames.
 ////////////////////////////////////////////////////////////////////////////////
 // Wallet creation:
 //	
-function NewlyCreatedWallet(mnemonic_wordsetName, nettype)
+function NewlyCreatedWallet(mnemonic_wordsetName, nettype, randomseed = null)
 {
-	const seed = monero_utils.random_scalar() // to generate a 32-byte (25-word) but reduced seed
+	const seed = monero_utils.random_scalar(randomseed) // to generate a 32-byte (25-word) but reduced seed
 	const mnemonicString = mnemonic.mn_encode(seed, mnemonic_wordsetName)
 	const keys = monero_utils.create_address(seed, nettype)
 	//

@@ -114,6 +114,44 @@ const SendFunds_ProcessStep_MessageSuffix =
 exports.SendFunds_ProcessStep_MessageSuffix = SendFunds_ProcessStep_MessageSuffix
 //
 function SendFunds(
+  isRingCT,
+  target_address, // currency-ready wallet address, but not an OA address (resolve before calling)
+  nettype,
+  amount, // number
+  wallet__keyImage_cache,
+  wallet__public_address,
+  wallet__private_keys,
+  wallet__public_keys,
+  hostedMoneroAPIClient,
+  monero_openalias_utils,
+  payment_id,
+  mixin,
+  simple_priority,
+  preSuccess_nonTerminal_statusUpdate_fn, // (_ stepCode: SendFunds_ProcessStep_Code) -> Void
+  success_fn,
+  failWithErr_fn
+) {
+	SendFundsWithOptions(
+    isRingCT,
+    target_address, // currency-ready wallet address, but not an OA address (resolve before calling)
+    nettype,
+    amount, // number
+    wallet__keyImage_cache,
+    wallet__public_address,
+    wallet__private_keys,
+    wallet__public_keys,
+    hostedMoneroAPIClient,
+    monero_openalias_utils,
+    payment_id,
+    mixin,
+    simple_priority,
+    null,
+    preSuccess_nonTerminal_statusUpdate_fn, // (_ stepCode: SendFunds_ProcessStep_Code) -> Void
+    success_fn,
+    failWithErr_fn
+	)
+}
+function SendFundsWithOptions(
 	isRingCT,
 	target_address, // currency-ready wallet address, but not an OA address (resolve before calling)
 	nettype,
@@ -127,6 +165,7 @@ function SendFunds(
 	payment_id,
 	mixin,
 	simple_priority,
+	options,
 	preSuccess_nonTerminal_statusUpdate_fn, // (_ stepCode: SendFunds_ProcessStep_Code) -> Void
 	success_fn,
 	// success_fn: (
@@ -497,7 +536,7 @@ function SendFunds(
 				serialized_signedTx = raw_tx_and_hash.raw
 				tx_hash = raw_tx_and_hash.hash
 			}
-			console.log("tx serialized: " + serialized_signedTx)
+			// console.log("tx serialized: " + serialized_signedTx)
 			console.log("Tx hash: " + tx_hash)
 			//
 			// work out per-kb fee for transaction and verify that it's enough
@@ -527,9 +566,20 @@ function SendFunds(
 			//
 			// generated with correct per-kb fee
 			const final_networkFee = attemptAt_network_minimumFee // just to make things clear
+			const tx_fee = final_networkFee/*.add(hostingService_chargeAmount) NOTE: Service charge removed to reduce bloat for now */
 			console.log("💬  Successful tx generation, submitting tx. Going with final_networkFee of ", monero_utils.formatMoney(final_networkFee))
-			// status: submitting…
-			preSuccess_nonTerminal_statusUpdate_fn(SendFunds_ProcessStep_Code.submittingTransaction)
+			if (options && options.doNotBroadcast) {
+				__trampolineFor_success({
+					signedTx: serialized_signedTx,
+					amount,
+					paymentId: final__payment_id,
+					tx_hash,
+					tx_fee
+				})
+				return
+      }
+      // status: submitting…
+      preSuccess_nonTerminal_statusUpdate_fn(SendFunds_ProcessStep_Code.submittingTransaction)
 			hostedMoneroAPIClient.SubmitSerializedSignedTransaction(
 				wallet__public_address,
 				wallet__private_keys.view,
@@ -540,7 +590,6 @@ function SendFunds(
 						__trampolineFor_err_withStr("Something unexpected occurred when submitting your transaction:", err)
 						return
 					}
-					const tx_fee = final_networkFee/*.add(hostingService_chargeAmount) NOTE: Service charge removed to reduce bloat for now */
 					__trampolineFor_success(
 						moneroReady_targetDescription_address,
 						amount,
@@ -554,6 +603,7 @@ function SendFunds(
 	}
 }
 exports.SendFunds = SendFunds
+exports.SendFundsWithOptions = SendFundsWithOptions
 //
 function new_moneroReadyTargetDescriptions_fromTargetDescriptions( 
 	monero_openalias_utils,
