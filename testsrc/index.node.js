@@ -1,5 +1,6 @@
 "use strict";
-const mymonero = require("../");
+const { mymonero_core_js } = require("../");
+const mymonero = mymonero_core_js 
 // const assert = require("assert");
 
 var public_key =
@@ -7,7 +8,7 @@ var public_key =
 var private_key =
 	"52aa4c69b93b780885c9d7f51e6fd5795904962c61a2e07437e130784846f70d";
 
-var nettype = mymonero.mymonero_core_js.nettype_utils.network_type.MAINNET;
+var nettype = mymonero.nettype_utils.network_type.MAINNET;
 
 var monero_utils;
 
