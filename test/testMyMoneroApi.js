@@ -1,6 +1,6 @@
-// @flow
+//      
 
-import type { QueryParams, SendFundsParams } from '../lib/myMoneroApi.js' 
+                                                                          
 const { MyMoneroApi } = require('../lib/myMoneroApi.js')
 const { randomBytes } = require('crypto')
 const fetch = require('node-fetch')
@@ -41,7 +41,7 @@ const mainAsync = async () => {
     } catch (e) {}
     if (valid) throw new Error('Should be invalid address')
 
-    const params: QueryParams = {
+    const params              = {
         moneroAddress: result.moneroAddress,
         moneroSpendKeyPrivate: result.moneroSpendKeyPrivate,
         moneroSpendKeyPublic: result.moneroSpendKeyPublic,
@@ -53,7 +53,7 @@ const mainAsync = async () => {
     const txResult = await myMoneroApi.getTransactions(params)
     console.log('getAddressInfo\n', txResult)
 
-    const sendParams: SendFundsParams = {
+    const sendParams                  = {
         ...params,
         targetAddress: '45jhDNLrdEC5a3AD27hffq6PGQURhmAtzhFp917rZ7cReDHfzT5wW6ZGE5TSs1Ga94NEna1eczs62HQYTn1QmxGNPkWsHKH',
         floatAmount: .001,
@@ -63,7 +63,7 @@ const mainAsync = async () => {
         paymentId: undefined,
         priority: undefined,
         doBroadcast: undefined,
-        onStatus: (code: number) => {
+        onStatus: (code        ) => {
             console.log(`SendFunds - onStatus:${code.toString()}`)
         }
     }
