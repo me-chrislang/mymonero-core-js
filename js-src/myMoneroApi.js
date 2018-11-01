@@ -48,7 +48,7 @@ export type SendFundsParams = QueryParams & {
     nettype?: string, // 'mainnet' only for now
     isSweepTx?: boolean,
     doBroadcast?: boolean,
-    paymentId?: string,
+    paymentId?: string | null,
     priority?: number, // 1-4 (Default is 1. Higher # is higher priority and higher fee )
     onStatus?: (code: number) => void
 }
@@ -175,8 +175,8 @@ class MyMoneroApi {
             nettype, // 'mainnet' only for now
             isSweepTx,
             doBroadcast,
-            paymentId,
-            priority,
+            paymentId = null,
+            priority = 1,
             onStatus            
         } = params
         if (nettype && nettype !== 'mainnet') {
