@@ -44,10 +44,7 @@ module.exports = function(options)
 		const ENVIRONMENT_IS_NODE = typeof process==="object" && process.browser !== true && typeof require==="function" && ENVIRONMENT_IS_WORKER == false; // we want this to be true for Electron but not for a WebView
 		const ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER;
 		var Module_template = {}
-		if (global.moneroRNBridge) {
-			const coreBridge = new MyMoneroCoreBridge(myMoneroCoreRN)
-			resolve(coreBridge)
-		} else if (options.asmjs != true || options.wasm == true) { // wasm
+		if (options.asmjs != true || options.wasm == true) { // wasm
 			Module_template["locateFile"] = function(filename, scriptDirectory)
 			{
 				// if (options["locateFile"]) {

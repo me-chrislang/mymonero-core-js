@@ -26,10 +26,22 @@
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
+const { myMoneroCoreRN } = require('./MyMoneroCoreRN.js')
+const { MyMoneroCoreBridge } = require('./MyMoneroCoreBridge.js')
 
-let coreBridge = {}
-if (global.moneroRNBridge) {
-	coreBridge = new MyMoneroCoreBridge(myMoneroCoreRN)
+let _moneroUtils
+const moneroUtilsFactory = async () => {
+	if (!_moneroUtils) {
+		_moneroUtils = new MyMoneroCoreBridge(myMoneroCoreRN)
+	}
+	return _moneroUtils
 }
 
-module.exports = coreBridge;
+//
+//
+// Since we actually are constructing bridge functions we technically have the export ready 
+// synchronously but that would lose the ability to wait until the core bridge is actually ready.
+//
+// TODO: in future, possibly return function which takes options instead to support better env.
+//
+module.exports = { moneroUtilsFactory };
