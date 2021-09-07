@@ -32,75 +32,75 @@
 
 const myMoneroCoreRN = {
 	async is_subaddress (argStr) {
-		const out = await global.moneroCore.methodByString('is_subaddress', argStr)
+		const out = await global.beldexCore.methodByString('is_subaddress', argStr)
 		return out
 	},
 	async is_integrated_address (argStr) {
-		const out = await global.moneroCore.methodByString('is_integrated_address', argStr)
+		const out = await global.beldexCore.methodByString('is_integrated_address', argStr)
 		return out
 	},
 	async new_payment_id (argStr) {
-		const out = await global.moneroCore.methodByString('new_payment_id', argStr)
+		const out = await global.beldexCore.methodByString('new_payment_id', argStr)
 		return out
 	},
 	async decode_address (argStr) {
-		const out = await global.moneroCore.methodByString('decode_address', argStr)
+		const out = await global.beldexCore.methodByString('decode_address', argStr)
 		return out
 	},
 	async newly_created_wallet (argStr) {
-		const out = await global.moneroCore.methodByString('newly_created_wallet', argStr)
+		const out = await global.beldexCore.methodByString('newly_created_wallet', argStr)
 		return out
 	},
 	async are_equal_mnemonics (argStr) {
-		const out = await global.moneroCore.methodByString('are_equal_mnemonics', argStr)
+		const out = await global.beldexCore.methodByString('are_equal_mnemonics', argStr)
 		return out
 	},
 	async mnemonic_from_seed (argStr) {
-		const out = await global.moneroCore.methodByString('mnemonic_from_seed', argStr)
+		const out = await global.beldexCore.methodByString('mnemonic_from_seed', argStr)
 		return out
 	},
 	async seed_and_keys_from_mnemonic (argStr) {
-		const out = await global.moneroCore.methodByString('seed_and_keys_from_mnemonic', argStr)
+		const out = await global.beldexCore.methodByString('seed_and_keys_from_mnemonic', argStr)
 		return out
 	},
 	async validate_components_for_login (argStr) {
-		const out = await global.moneroCore.methodByString('validate_components_for_login', argStr)
+		const out = await global.beldexCore.methodByString('validate_components_for_login', argStr)
 		return out
 	},
 	async address_and_keys_from_seed (argStr) {
-		const out = await global.moneroCore.methodByString('address_and_keys_from_seed', argStr)
+		const out = await global.beldexCore.methodByString('address_and_keys_from_seed', argStr)
 		return out
 	},
 	async generate_key_image (argStr) {
-		const out = await global.moneroCore.methodByString('generate_key_image', argStr)
+		const out = await global.beldexCore.methodByString('generate_key_image', argStr)
 		return out
 	},
 	async generate_key_derivation (argStr) {
-		const out = await global.moneroCore.methodByString('generate_key_derivation', argStr)
+		const out = await global.beldexCore.methodByString('generate_key_derivation', argStr)
 		return out
 	},
 	async derive_public_key (argStr) {
-		const out = await global.moneroCore.methodByString('derive_public_key', argStr)
+		const out = await global.beldexCore.methodByString('derive_public_key', argStr)
 		return out
 	},
 	async derive_subaddress_public_key (argStr) {
-		const out = await global.moneroCore.methodByString('derive_subaddress_public_key', argStr)
+		const out = await global.beldexCore.methodByString('derive_subaddress_public_key', argStr)
 		return out
 	},
 	async decodeRct (argStr) {
-		const out = await global.moneroCore.methodByString('decodeRct', argStr)
+		const out = await global.beldexCore.methodByString('decodeRct', argStr)
 		return out
 	},
 	async estimated_tx_network_fee (argStr) {
-		const out = await global.moneroCore.methodByString('estimated_tx_network_fee', argStr)
+		const out = await global.beldexCore.methodByString('estimated_tx_network_fee', argStr)
 		return out
 	},
 	async send_step1__prepare_params_for_get_decoys (argStr) {
-		const out = await global.moneroCore.methodByString('send_step1__prepare_params_for_get_decoys', argStr)
+		const out = await global.beldexCore.methodByString('send_step1__prepare_params_for_get_decoys', argStr)
 		return out
 	},
 	async send_step2__try_create_transaction (argStr) {
-		const out = await global.moneroCore.methodByString('send_step2__try_create_transaction', argStr)
+		const out = await global.beldexCore.methodByString('send_step2__try_create_transaction', argStr)
 		return out
 	}
 }
